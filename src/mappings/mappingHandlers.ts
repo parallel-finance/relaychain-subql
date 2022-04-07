@@ -41,7 +41,7 @@ export async function handleValidators(block: SubstrateBlock) {
         validator.blockHeight = blockHeight
       }
 
-      validator.save()
+      await validator.save()
     }
   }
 }
@@ -66,7 +66,7 @@ export async function handleParachainInfos(block: SubstrateBlock) {
       info.blockHeight = blockHeight
     }
 
-    info.save()
+    await info.save()
   }
 }
 

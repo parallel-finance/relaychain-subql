@@ -52,3 +52,6 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+
+# subql data
+.data/
