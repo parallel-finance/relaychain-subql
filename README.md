@@ -108,12 +108,12 @@ For the `relaychain-subql` project, you can try to query with the following code
 ```graphql
 {
   query {
-    parachainInfos(first: 50) {
+    parachainInfos(filter: { paraId: { equalTo: 2085 } }) {
       nodes {
-        id
         sovAcc
         deposited
         blockHeight
+        timestamp
       }
     }
   }
