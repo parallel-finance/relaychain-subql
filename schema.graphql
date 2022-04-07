@@ -1,16 +1,18 @@
 type Validator @entity {
   id: ID!
-  derivativeIndex: Int @index
-  stashId: String @index
-  name: String
-  stakes: String
-  commission: String
-  blockHeight: Int @index
+  derivativeIndex: Int! @index
+  stashId: String! @index
+  name: String!
+  stakes: String!
+  commission: String!
+  blockHeight: Int! @index
 }
 
 type ParachainInfo @entity {
   id: ID!
-  sovAcc: String @index
-  deposited: String
-  blockHeight: Int @index
+  paraId: Int! @index
+  sovAcc: String! @index
+  deposited: String!
+  blockHeight: Int! @index
+  timestamp: Date!
 }

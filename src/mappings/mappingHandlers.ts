@@ -37,7 +37,6 @@ export async function handleValidators(block: SubstrateBlock) {
         validator.commission = props.commission
         validator.stakes = props.stakes
         validator.name = props.name
-        validator.derivativeIndex = derivativeIndex
         validator.blockHeight = blockHeight
       }
 
@@ -53,17 +52,20 @@ export async function handleParachainInfos(block: SubstrateBlock) {
   const blockHeight = block.block.header.number.toNumber()
   for (const [idx, paraId] of paraIds.entries()) {
     const props = {
-      id: paraId.toString(),
+      id: `${block.block.header.hash.toString()}-${paraId.toString()}`,
+      paraId,
       sovAcc: sovereignAccounts[idx],
       deposited: availableBalances[idx],
       blockHeight,
+      timestamp: block.timestamp,
     }
     const info =
       (await ParachainInfo.get(props.id)) ?? ParachainInfo.create(props)
 
     if (info.deposited !== props.deposited) {
       info.deposited = props.deposited
-      info.blockHeight = blockHeight
+      info.blockHeight = props.blockHeight
+      info.timestamp = props.timestamp
     }
 
     await info.save()
@@ -71,9 +73,13 @@ export async function handleParachainInfos(block: SubstrateBlock) {
 }
 
 export async function handleBlock(block: SubstrateBlock): Promise<void> {
+  const blockNumber = block.block.header.number.toNumber()
+  if (blockNumber % 600 !== 0) {
+    return
+  }
   try {
     await Promise.all([handleValidators(block), handleParachainInfos(block)])
   } catch (e) {
-    logger.error(`handle block error: ${e.message || e}`)
+    logger.error(e.message)
   }
 }
