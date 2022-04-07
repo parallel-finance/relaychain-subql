@@ -11,7 +11,7 @@ network:
   # dictionary: 'https://api.subquery.network/sq/subquery/kusama-dictionary'
 dataSources:
   - kind: substrate/Runtime
-    startBlock: 12145083
+    startBlock: 11786858
     mapping:
       file: ./dist/index.js
       handlers:
