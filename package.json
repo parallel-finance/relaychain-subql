@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc -b",
     "prepack": "rm -rf dist && npm build",
+    "ipfs:publish": "subql publish",
     "test": "jest",
     "codegen": "./node_modules/.bin/subql codegen"
   },
