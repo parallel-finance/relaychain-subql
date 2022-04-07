@@ -91,7 +91,7 @@ For the `relaychain-subql` project, you can try to query with the following code
 ```graphql
 {
   query {
-    validators(first: 10) {
+    validators(first: 24) {
       nodes {
         derivativeIndex
         stashId
@@ -108,8 +108,9 @@ For the `relaychain-subql` project, you can try to query with the following code
 ```graphql
 {
   query {
-    parachainInfos(first: 10) {
+    parachainInfos(first: 50) {
       nodes {
+        id
         sovAcc
         deposited
         blockHeight

@@ -61,18 +61,18 @@ export const getAvailableBalances = async (
 }
 
 export const getStakingLedgers = async (): Promise<string[]> => {
-  const chain = (await api.rpc.system.chain()).toString()
+  // const chain = (await api.rpc.system.chain()).toString()
+  //
+  // let paraId
+  // if (chain.startsWith('Kusama')) {
+  //   paraId = HEIKO_PARA_ID
+  // } else if (chain.startsWith('Polkadot')) {
+  //   paraId = PARALLEL_PARA_ID
+  // } else {
+  //   return []
+  // }
 
-  let paraId
-  if (chain.startsWith('Kusama')) {
-    paraId = HEIKO_PARA_ID
-  } else if (chain.startsWith('Polkadot')) {
-    paraId = PARALLEL_PARA_ID
-  } else {
-    return []
-  }
-
-  const sovAcc = sovereignAccountOf(paraId)
+  const sovAcc = sovereignAccountOf(HEIKO_PARA_ID)
   return DERIVATIVE_INDEX_LIST.map((idx) => subAccountId(sovAcc, idx))
 }
 
@@ -86,11 +86,9 @@ export const getIdentity = async (account: AccountId): Promise<string> => {
     const superIdentity = await api.query.identity.identityOf(
       superOf.unwrap()[0].toString()
     )
-    const idx = u8aToBigInt(superOf.unwrap()[1].asRaw)
+    const idx = u8aToString(superOf.unwrap()[1].asRaw)
     if (superIdentity.isSome) {
-      return `${u8aToString(
-        superIdentity.unwrap().info.display.asRaw
-      )}/${idx.toString()}`
+      return `${u8aToString(superIdentity.unwrap().info.display.asRaw)}/${idx}`
     }
   }
   return ''
