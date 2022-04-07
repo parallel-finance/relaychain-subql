@@ -61,16 +61,20 @@ export const getAvailableBalances = async (
 }
 
 export const getStakingLedgers = async (): Promise<string[]> => {
-  // const chain = (await api.rpc.system.chain()).toString()
-  //
-  // let paraId
-  // if (chain.startsWith('Kusama')) {
-  //   paraId = HEIKO_PARA_ID
-  // } else if (chain.startsWith('Polkadot')) {
-  //   paraId = PARALLEL_PARA_ID
-  // } else {
-  //   return []
-  // }
+  const lastRuntimeUpgrade = await api.query.system.lastRuntimeUpgrade()
+  if (lastRuntimeUpgrade.isNone) {
+    return []
+  }
+  const chain = lastRuntimeUpgrade.unwrap().specName.toString().toLowerCase()
+
+  let paraId
+  if (chain.startsWith('kusama')) {
+    paraId = HEIKO_PARA_ID
+  } else if (chain.startsWith('polkadot')) {
+    paraId = PARALLEL_PARA_ID
+  } else {
+    return []
+  }
 
   const sovAcc = sovereignAccountOf(HEIKO_PARA_ID)
   return DERIVATIVE_INDEX_LIST.map((idx) => subAccountId(sovAcc, idx))
