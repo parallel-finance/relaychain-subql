@@ -1,14 +1,14 @@
 specVersion: 0.2.0
 name: relaychain-subql
 version: 0.0.1
-description: Kusama/Polkadot subql indexing service
-repository: 'https://github.com/subquery/kusama-subql-starters'
+description: Parallel kusama/polkadot subql indexing service
+repository: 'https://github.com/parallel-finance/relaychain-subql'
 schema:
   file: ./schema.graphql
 network:
-  endpoint: 'wss://kusama.api.onfinality.io/public-ws'
-  genesisHash: '0xb0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafe'
-  dictionary: 'https://api.subquery.network/sq/subquery/kusama-dictionary'
+  endpoint: 'wss://regnet4-relay-rpc.parallel.fi'
+  genesisHash: '0xf86591aeaa54b7221022a95b298d1bdf68603cb689d555bd4d686ecc4a83ba2c'
+  # dictionary: 'https://api.subquery.network/sq/subquery/kusama-dictionary'
 dataSources:
   - kind: substrate/Runtime
     startBlock: 1
@@ -17,10 +17,3 @@ dataSources:
       handlers:
         - handler: handleBlock
           kind: substrate/BlockHandler
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: balances
-            method: Deposit
-        - handler: handleCall
-          kind: substrate/CallHandler

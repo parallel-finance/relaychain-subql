@@ -1,7 +1,7 @@
 {
   "name": "relaychain-subql",
   "version": "0.0.1",
-  "description": "Kusama/Polkadot subql indexing service",
+  "description": "Parallel kusama/polkadot indexing service",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -b",
@@ -9,14 +9,14 @@
     "test": "jest",
     "codegen": "./node_modules/.bin/subql codegen"
   },
-  "homepage": "https://github.com/subquery/kusama-subql-starter",
-  "repository": "github:subquery/kusama-subql-starter",
+  "homepage": "https://github.com/parallel-finance/relaychain-subql",
+  "repository": "https://github.com/parallel-finance/relaychain-subql",
   "files": [
     "dist",
     "schema.graphql",
     "project.yaml"
   ],
-  "author": "Parallel Finance",
+  "author": "Parallel Team",
   "license": "MIT",
   "devDependencies": {
     "@polkadot/api": "^7",

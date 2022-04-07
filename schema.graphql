@@ -1,17 +1,16 @@
-type StarterEntity @entity {
+type Validator @entity {
+  id: ID!
+  derivativeIndex: Int @index
+  stashId: String @index
+  name: String
+  stakes: String
+  commission: String
+  blockHeight: Int @index
+}
 
-  id: ID! #id is a required field
-
-  field1: Int!
-
-  field2: String #filed2 is an optional field
-
-  field3: BigInt
-
-  field4: Date
-
-  field5: Boolean
-
-
-
+type ParachainInfo @entity {
+  id: ID!
+  sovAcc: String @index
+  deposited: String
+  blockHeight: Int @index
 }
