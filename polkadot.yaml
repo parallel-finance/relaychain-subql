@@ -1,7 +1,7 @@
 specVersion: 0.2.0
-name: relaychain-subql
+name: polkadot-subql
 version: 0.0.1
-description: Parallel kusama/polkadot subql indexing service
+description: Parallel polkadot subql indexing service
 repository: 'https://github.com/parallel-finance/relaychain-subql'
 schema:
   file: ./schema.graphql
@@ -10,7 +10,7 @@ network:
   genesisHash: '0x91b171bb158e2d3848fa23a9f1c25182fb8e20313b2c1eb49219da7a70ce90c3'
 dataSources:
   - kind: substrate/Runtime
-    startBlock: 9844733
+    startBlock: 9844733 # linked to parallel block #739460
     mapping:
       file: ./dist/index.js
       handlers:
