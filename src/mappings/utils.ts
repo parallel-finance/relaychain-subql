@@ -11,7 +11,7 @@ import { ParaId, AccountId } from '@polkadot/types/interfaces'
 import { Vec } from '@polkadot/types'
 import { encodeAddress, decodeAddress } from '@polkadot/keyring'
 
-const DERIVATIVE_INDEX_LIST = [0]
+const DERIVATIVE_INDEX_LIST = [0, 1, 2, 3, 4, 5]
 
 const HEIKO_PARA_ID = 2085
 const PARALLEL_PARA_ID = 2012

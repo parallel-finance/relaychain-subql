@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        manifest: ['kusama', 'project']
+        manifest: ['kusama', 'polkadot', 'project']
 
     steps:
       - uses: actions/checkout@v2
