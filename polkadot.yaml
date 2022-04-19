@@ -1,13 +1,20 @@
-specVersion: 0.2.0
+specVersion: 1.0.0
 name: polkadot-subql
 version: 0.0.2
+runner:
+  node:
+    name: '@subql/node'
+    version: v0.33.0
+  query:
+    name: '@subql/query'
+    version: v0.14.1
 description: Parallel polkadot subql indexing service
 repository: 'https://github.com/parallel-finance/relaychain-subql'
 schema:
   file: ./schema.graphql
 network:
+  chainId: '0x91b171bb158e2d3848fa23a9f1c25182fb8e20313b2c1eb49219da7a70ce90c3'
   endpoint: 'wss://rpc.polkadot.io'
-  genesisHash: '0x91b171bb158e2d3848fa23a9f1c25182fb8e20313b2c1eb49219da7a70ce90c3'
 dataSources:
   - kind: substrate/Runtime
     startBlock: 9844733 # linked to parallel block #739460
