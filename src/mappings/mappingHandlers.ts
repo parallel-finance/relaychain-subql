@@ -42,6 +42,10 @@ export async function handleValidators(block: SubstrateBlock) {
 
       await validator.save()
     }
+
+    for (const idx of [...Array(24).keys()].slice(validatorInfos.length)) {
+      await Validator.remove(`${derivativeIndex}-${idx}`)
+    }
   }
 }
 
