@@ -11,7 +11,7 @@ import { ParaId, AccountId } from '@polkadot/types/interfaces'
 import { Vec } from '@polkadot/types'
 import { encodeAddress, decodeAddress } from '@polkadot/keyring'
 
-const DERIVATIVE_INDEX_LIST = [0, 1, 2, 3, 4, 5]
+const DERIVATIVE_INDEX_LIST = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
 const HEIKO_PARA_ID = 2085
 const PARALLEL_PARA_ID = 2012
@@ -84,7 +84,7 @@ export const getIdentity = async (account: AccountId): Promise<string> => {
   const identity = await api.query.identity.identityOf(account)
   const superOf = await api.query.identity.superOf(account)
   if (identity.isSome) {
-    return u8aToString(identity.unwrap().info.display.asRaw)
+    return u8aToString(identity.unwrap().info.display.asRaw).toUpperCase()
   }
   if (superOf.isSome) {
     const superIdentity = await api.query.identity.identityOf(
@@ -92,7 +92,9 @@ export const getIdentity = async (account: AccountId): Promise<string> => {
     )
     const idx = u8aToString(superOf.unwrap()[1].asRaw)
     if (superIdentity.isSome) {
-      return `${u8aToString(superIdentity.unwrap().info.display.asRaw)}/${idx}`
+      return `${u8aToString(
+        superIdentity.unwrap().info.display.asRaw
+      )}/${idx}`.toUpperCase()
     }
   }
   return ''
