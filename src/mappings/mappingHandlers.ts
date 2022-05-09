@@ -27,7 +27,7 @@ export async function handleValidators(block: SubstrateBlock) {
       }
 
       const validator =
-        (await Validator.get(props.id)) ?? Validator.create(props)
+        (await Validator.get(props.id)) ?? (await Validator.create(props))
 
       if (
         validator.commission !== props.commission ||

@@ -76,7 +76,7 @@ export const getStakingLedgers = async (): Promise<string[]> => {
     return []
   }
 
-  const sovAcc = sovereignAccountOf(HEIKO_PARA_ID)
+  const sovAcc = sovereignAccountOf(paraId)
   return DERIVATIVE_INDEX_LIST.map((idx) => subAccountId(sovAcc, idx))
 }
 
