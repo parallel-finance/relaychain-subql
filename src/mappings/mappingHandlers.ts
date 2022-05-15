@@ -3,7 +3,8 @@ import {
   SubstrateEvent,
   SubstrateBlock,
 } from '@subql/types'
-import { Balance } from '@polkadot/types/interfaces'
+import { Balance, AccountId } from '@polkadot/types/interfaces'
+import { BN } from '@polkadot/util'
 import {
   getAvailableBalances,
   getValidatorInfos,
@@ -11,7 +12,7 @@ import {
   getSovereignAccounts,
   getStakingLedgers,
 } from './utils'
-import { ParachainInfo, Validator } from '../types'
+import { ParachainInfo, Reward, Validator } from '../types'
 
 export async function handleValidators(block: SubstrateBlock) {
   const stakingLedgers = await getStakingLedgers()
@@ -74,6 +75,30 @@ export async function handleParachainInfos(block: SubstrateBlock) {
 
     await info.save()
   }
+}
+
+export async function handleEvent(event: SubstrateEvent) {
+  const stakingLedgers = await getStakingLedgers()
+  const beneficiary = event.event.data[0] as AccountId
+  const amount = event.event.data[1] as Balance
+  const derivativeIndex = stakingLedgers.indexOf(beneficiary.toString())
+  if (derivativeIndex < 0) {
+    return
+  }
+
+  let id = `${beneficiary.toString()}`
+  let reward = await Reward.get(id)
+  if (!reward) {
+    reward = Reward.create({
+      id,
+      derivativeIndex,
+      amount: amount.toString(),
+    })
+    return
+  }
+
+  reward.amount = amount.toBn().add(new BN(reward.amount)).toString()
+  await reward.save()
 }
 
 export async function handleBlock(block: SubstrateBlock): Promise<void> {

@@ -16,3 +16,9 @@ type ParachainInfo @entity {
   blockHeight: Int! @index
   timestamp: Date!
 }
+
+type Reward @entity {
+  id: ID!
+  derivativeIndex: Int! @index
+  amount: String!
+}
