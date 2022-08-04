@@ -28,7 +28,7 @@ dataSources:
           filter:
             module: staking
             method: Rewarded
-        - handler: handleEvent
+        - handler: handleCrowdloanContributed
           kind: substrate/EventHandler
           filter:
             module: crowdloan
