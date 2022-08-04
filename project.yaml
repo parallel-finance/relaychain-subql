@@ -1,5 +1,5 @@
 specVersion: 1.0.0
-name: relaychain-subql
+name: kusama-subql
 version: 1.0.0
 runner:
   node:
@@ -8,16 +8,16 @@ runner:
   query:
     name: '@subql/query'
     version: '^1'
-description: Parallel kusama/polkadot subql indexing service
+description: Parallel kusama subql indexing service
 repository: 'https://github.com/parallel-finance/relaychain-subql'
 schema:
   file: ./schema.graphql
 network:
-  chainId: '0xf86591aeaa54b7221022a95b298d1bdf68603cb689d555bd4d686ecc4a83ba2c'
-  endpoint: 'wss://regnet4-relay-rpc.parallel.fi'
+  chainId: '0xb0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafe'
+  endpoint: 'wss://kusama-rpc.polkadot.io'
 dataSources:
   - kind: substrate/Runtime
-    startBlock: 15000
+    startBlock: 13400007
     mapping:
       file: ./dist/index.js
       handlers:
@@ -28,3 +28,8 @@ dataSources:
           filter:
             module: staking
             method: Rewarded
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: crowdloan
+            method: Contributed

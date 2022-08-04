@@ -12,7 +12,7 @@ import {
   getSovereignAccounts,
   getStakingLedgers,
 } from './utils'
-import { ParachainInfo, Reward, Validator } from '../types'
+import { ParachainInfo, Reward, Validator, Contribution } from '../types'
 
 export async function handleValidators(block: SubstrateBlock) {
   const stakingLedgers = await getStakingLedgers()
@@ -111,3 +111,27 @@ export async function handleBlock(block: SubstrateBlock): Promise<void> {
     logger.error(e.message)
   }
 }
+
+export const handleCrowdloanContributed = async (substrateEvent: SubstrateEvent) => {
+  const { event, block, idx } = substrateEvent;
+  const { timestamp, block: rawBlock } = block;
+
+  const blockNum = rawBlock.header.number.toNumber();
+  const [contributor, fundIdx, amount] = event.data.toJSON() as [string, number, number | string];
+
+  logger.info(event.toHuman());
+
+  const contribution = {
+    id: `${blockNum}-${idx}`,
+    account: contributor,
+    paraId: fundIdx,
+    amount: amount.toString(),
+    timestamp,
+    blockNum
+  };
+
+  logger.info(`contribution for ${JSON.stringify(contribution, null, 2)}`);
+  const contributionEntity = Contribution.create(contribution);
+  await contributionEntity.save();
+  logger.info(`contribution insert successfully`);
+};

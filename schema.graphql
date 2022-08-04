@@ -22,3 +22,12 @@ type Reward @entity {
   derivativeIndex: Int! @index
   amount: String!
 }
+
+type Contribution @entity {
+  id: ID!
+  account: String! @index
+  paraId: Int! @index
+  amount: String!
+  blockNum: Int! @index
+  timestamp: Date!
+}
